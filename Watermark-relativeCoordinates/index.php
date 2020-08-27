@@ -10,11 +10,11 @@
         <link rel="stylesheet" href="jquery/jqui_rotate/jquery.ui.rotatable.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="jpicker/css/jPicker-1.1.6.css" type="text/css"/>
+        
         <style>
-            canvas {
-                border: solid black 2px;
-            }
-            
+        canvas {
+            border: solid black 2px;
+        }    
         font-family: 'Balsamiq Sans', cursive;
         font-family: 'Comfortaa', cursive;
         font-family: 'Jura', sans-serif;
@@ -25,18 +25,12 @@
         font-family: 'Prosto One', cursive;
         font-family: 'Russo One', sans-serif;
         font-family: 'Source Code Pro', monospace;
-            
         </style>
-        
         <title>Watermarker</title>
     </head>
-        
 <body>
-    
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            
-        </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
@@ -79,14 +73,11 @@
         </div>
     </div>
     
-    
     <div class="container-fluid" >
         <div class="row justify-content-center">
             <canvas id="canvas" width="800" height="800"></canvas>
         </div>
     </div>
-    
-    
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -112,22 +103,21 @@
             var file = e.target.files[0];
             var reader = new FileReader();
             reader.onload = function (f) {
-                var data = f.target.result;                    
-                fabric.Image.fromURL(data, function (img) {
-                    var oImg = img.set({
-                        angle: 0,
-                        padding: 0,
-                        cornersize:0,
-                    }).scale(0.9);
-                    
+            var data = f.target.result;                    
+            fabric.Image.fromURL(data, function (img) {
+                var oImg = img.set({
+                    angle: 0,
+                    padding: 0,
+                    cornersize:0,
+                }).scale(0.9);
                     if (oImg.width >= canvas.width)
-                        {
-                            oImg.scaleToWidth(canvas.width); 
-                        }
+                    {
+                        oImg.scaleToWidth(canvas.width); 
+                    }
                     if (oImg.height >= canvas.height)
-                        {
-                            oImg.scaleToHeight(canvas.height);
-                        }
+                    {
+                        oImg.scaleToHeight(canvas.height);
+                    }
                 oImg.setControlsVisibility({
                     mt: false,
                     mb: false,
@@ -139,7 +129,7 @@
                 var dataURL = canvas.toDataURL({format: 'png', quality: 1});
                 });
             };
-        reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
         });
         
         $("#JSONlog").click(function() {
@@ -152,8 +142,6 @@
             window.open("data:text/json;charset=utf-8," + escape(JSON.stringify(i_output_json)));              
         });
         
-        
-
         $("#alpha").slider({
             max: 1,
             min: 0,
@@ -176,10 +164,10 @@
                 fill: "rgb(0,0,0)",
             });
             text.setControlsVisibility({
-                    mt: false,
-                    mb: false,
-                    ml: false,
-                    mr: false,
+                mt: false,
+                mb: false,
+                ml: false,
+                mr: false,
             });
             canvas.add(text);
             canvas.renderAll();
@@ -204,15 +192,18 @@
         });
        
         $('#Callbacks').jPicker(
-        {window:{position:{x:'-50',y:'50'},expandable: false,liveUpdate: true}},
-        
-                function(color, context){
+        {
+        window:{
+            position:{x:'-50',y:'50'},
+            expandable: false,
+            liveUpdate: true}
+        },
+            function(color, context){
             var all = color.val('all');
             canvas.getActiveObject() && (canvas.getActiveObject().set("fill", "#" + all.hex))
             canvas.renderAll();
             console.log(all.hex.toString());
-                });
+        });
     </script>
 </body>
-    
 </html>
